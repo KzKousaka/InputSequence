@@ -10,7 +10,7 @@ Package Controlには追加していませんので、独自にインストー�
 次に、ショートカットキーを設定しておきます。
 はじめて設定する場合、空のテキストかもしれませんが、以下のように設定します。
 
-```json
+```javascript
 [
 	// Input Sequence
 	{ "keys": ["ctrl+shift+0"], "command": "input_sequence"}
@@ -18,7 +18,7 @@ Package Controlには追加していませんので、独自にインストー�
 ```
 
 JSON記述の配列記述なので、ほかに設定がある場合、
-```json
+```javascript
 [
 	// Input Sequence
 	{ "keys": ["ctrl+shift+0"], "command": "input_sequence"},
@@ -28,6 +28,7 @@ JSON記述の配列記述なので、ほかに設定がある場合、
 	{ "keys": ["ctrl+shift+alt+1"], "command": "calculate_count" },
 	{ "keys": ["ctrl+shift+c"], "command": "calculate", "args": {"replace": true} }
 ]
+```
 
 セミコロン`,`の使い方に気をつけてください。
 
