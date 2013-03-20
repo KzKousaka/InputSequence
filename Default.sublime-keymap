@@ -1,0 +1,3 @@
+[
+    { "keys": ["ctrl+shift+0"], "command": "input_sequence"}
+]

@@ -1,36 +1,20 @@
 #InputSequence
 
-「Sublime Text 2」にインストールしてつかうプラグイン
+「Sublime Text 2」にインストールしてつかうプラグイン  
 Package Controlには追加していませんので、独自にインストールする必要があります。
 
 ## インストール
-まず、`InputSequence`フォルダーをSublime Text 2の`Package`フォルダーに保存します。
-（メニューの`Prefarences->Browse Packages`からアクセス) 
+Package Control から Add Repository を実行。  
+ウィンドウ下部にリポジトリパスの入力エリアが出現するので、下記を入力。  
 
-次に、ショートカットキーを設定しておきます。
-はじめて設定する場合、空のテキストかもしれませんが、以下のように設定します。
+    https://github.com/wakuworks/InputSequence.git
 
-```javascript
-[
-	// Input Sequence
-	{ "keys": ["ctrl+shift+0"], "command": "input_sequence"}
-]
-```
+次に Install Package を実行し、InputSequence をインストール。
 
-JSON記述の配列記述なので、ほかに設定がある場合、
-```javascript
-[
-	// Input Sequence
-	{ "keys": ["ctrl+shift+0"], "command": "input_sequence"},
-
-	// その他の設定
-	{ "keys": ["ctrl+shift+="], "command": "calculate", "args": {"replace": false} },
-	{ "keys": ["ctrl+shift+alt+1"], "command": "calculate_count" },
-	{ "keys": ["ctrl+shift+c"], "command": "calculate", "args": {"replace": true} }
-]
-```
-
-セミコロン`,`の使い方に気をつけてください。
+## アンインストール
+Package Control から Remove Package を実行し、InputSequence をアンインストール。  
+次にメニューから、`Preferences->Package Settings->Package Control->Settings - User`を開き、  
+repositories から `https://github.com/wakuworks/InputSequence.git` の一行を削除。
 
 ## 使い方
 `command+d`(Mac)などで、複数キャレットを表示させた状態にしておきます。
@@ -45,4 +29,3 @@ JSON記述の配列記述なので、ほかに設定がある場合、
 `-10`(10からの降順連番)
 
 の機能も備えています。
-
