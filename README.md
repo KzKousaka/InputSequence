@@ -13,14 +13,14 @@ Package Controlには追加されていませんので、github リポジトリ�
 Package Control から Add Repository を実行。  
 ウィンドウ下部にリポジトリパスの入力エリアが出現するので、下記を入力。  
 
-[https://github.com/kazu1107/SublimeInputSequence.git](https://github.com/kazu1107/SublimeInputSequence.git)
+[https://github.com/kazu1107/InputSequence.git](https://github.com/kazu1107/InputSequence.git)
 
 次に Install Package を実行し、InputSequence をインストール。
 
 ### アンインストール
 Package Control から Remove Package を実行し、InputSequence をアンインストール。  
 次にメニューから、`Preferences > Package Settings > Package Control > Settings - User`を開き、  
-repositories から [https://github.com/kazu1107/SublimeInputSequence.git](https://github.com/kazu1107/SublimeInputSequence.git) の一行を削除。
+repositories から [https://github.com/kazu1107/InputSequence.git](https://github.com/kazu1107/InputSequence.git) の一行を削除。
 
 ### 操作手順
 
