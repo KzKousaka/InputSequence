@@ -341,7 +341,6 @@ class InputSequenceCommand(sublime_plugin.TextCommand):
 			if cmd != '$':
 				params["overflow"]  = self.OVERFLOW_ZERO
 			
-
 			else:
 				num_val = num_val.replace(cmd,'')
 
@@ -387,7 +386,7 @@ class InputSequenceCommand(sublime_plugin.TextCommand):
 						else:
 							num = 0
 						pp = self.WT_b
-					elif fmt_type == self.FMT_a :
+					elif fmt_type == self.FMT_a or fmt_type == self.FMT_A :
 						if 'a' <= c <= 'z':
 							num = ord(c) - self.CH_CODE_LITTLE_A
 						elif 'A' <= c <= 'Z':
@@ -400,20 +399,20 @@ class InputSequenceCommand(sublime_plugin.TextCommand):
 
 				else:
 					if '0' <= c <= '9':
-						num = ord(c) - self.CH_CODE_0
 						pp = self.WT_NUM
+						num = ord(c) - self.CH_CODE_0
 						params['digits_type'].append(self.DT_NUM+add)
 
 					elif 'a' <= c <= 'z':
 						pp = self.WT_ALPHA
 						num = ord(c) - self.CH_CODE_LITTLE_A
-						params['digits_type'].append(self.DT_LITLE_ALPHA+add)
+						params['digits_type'].append(self.DT_LITLE_ALPHA + add)
+
 					elif 'A' <= c <= 'Z':
 						pp = self.WT_ALPHA
 						num = ord(c) - self.CH_CODE_CAP_A
-						params['digits_type'].append(self.DT_CAP_ALPHA)
+						params['digits_type'].append(self.DT_CAP_ALPHA + add)
 
-				#print("&&&", c, num, p)
 				c = num * p
 				params['num'] += c
 				p *= pp
