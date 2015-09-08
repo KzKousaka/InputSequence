@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 """
-    SublimeInputSequence.py(InputSequenceCommand)
+    InputSequence.py(InputSequenceCommand)
     http://cosing-plus.com/
-    
+
     This plug-in will output a sequence numbers in
     mulutiple caret position.
-    
+
     ver 2.0.1 - 2015.9.8
 """
 
@@ -36,7 +36,7 @@ class InputSequenceCommand(sublime_plugin.TextCommand):
 	WT_o       = 8
 	WT_b       = 2
 
-	
+
 	DT_NUM 	           = 0
 	DT_NUM_ADD         = 1
 	DT_CAP_ALPHA       = 2
@@ -65,7 +65,7 @@ class InputSequenceCommand(sublime_plugin.TextCommand):
 
 
 	trimRef = {ord(' '):'', ord('\t'):'', ord('\r'):'', ord('\n'):''}
-			
+
 
 	def make_str(self, params):
 
@@ -73,7 +73,7 @@ class InputSequenceCommand(sublime_plugin.TextCommand):
 			return ""
 		if params['num'] > 0xFFFFFFFFFFFFFFFF :
 			return ""
-		
+
 		i = 0
 		dt_len = len(params['digits_type'])
 		insert_str = ""
@@ -91,25 +91,25 @@ class InputSequenceCommand(sublime_plugin.TextCommand):
 				d = int(num % p)
 				c = chr(self.CH_CODE_0 + d)
 				dt_a = self.DT_NUM_ADD
-			
+
 			elif dt == self.DT_CAP_ALPHA or dt == self.DT_CAP_ALPHA_ADD:
 				p = 26
 				d = int(num % p)
 				c = chr(self.CH_CODE_CAP_A + d)
 				dt_a = self.DT_CAP_ALPHA_ADD
-			
+
 			elif dt == self.DT_LITLE_ALPHA or dt == self.DT_LITLE_ALPHA_ADD:
 				p = 26
 				d = int(num % p)
 				c = chr(self.CH_CODE_LITTLE_A + d)
 				dt_a = self.DT_LITLE_ALPHA_ADD
-			
+
 			elif dt == self.DT_b or dt == self.DT_b_ADD:
 				p = 2
 				d = int(num % p)
 				c = chr(self.CH_CODE_0 + d)
 				dt_a = self.DT_b_ADD
-			
+
 			elif dt == self.DT_o or dt == self.DT_o_ADD:
 				p = 8
 				d = int(num % p)
@@ -136,7 +136,7 @@ class InputSequenceCommand(sublime_plugin.TextCommand):
 			if i == dt_len and params['overflow'] == self.OVERFLOW_AUTO and num > 0:
 				dt_len += 1
 				params['digits_type'].append(dt_a)
-				
+
 				# アルファベットで自動桁上りする際は、再帰処理にて再計算を行う
 				if dt_a == self.DT_LITLE_ALPHA_ADD or dt_a == self.DT_CAP_ALPHA_ADD:
 					params['num'] -= pow(26 ,dt_len-1)
@@ -174,16 +174,16 @@ class InputSequenceCommand(sublime_plugin.TextCommand):
 				if params['num'] > params['period']:
 					if not params['repeat'] :
 						return
-					
+
 					# insert_str = params['begin_num']
 					params['num']        	= params['num_init']
 					params['digits_type']   = params['digits_init'][:]
 
 			insert_str = self.make_str(params)
-					
+
 			if region.empty():	# non select word
 				self.view.insert(edit, region.a, insert_str)
-			
+
 			else:				# select word
 				self.view.replace(edit, region, insert_str)
 
@@ -228,7 +228,7 @@ class InputSequenceCommand(sublime_plugin.TextCommand):
 		iterator = pattern.finditer(word)
 
 		keys = []
-		
+
 		num_val		= None
 		fmt_type	= None
 		digits_type = None
@@ -248,7 +248,7 @@ class InputSequenceCommand(sublime_plugin.TextCommand):
 				or '$' == cmd:
 
 				num_val = val
-				
+
 			elif cmd == '%':
 
 				i = 1
@@ -340,7 +340,7 @@ class InputSequenceCommand(sublime_plugin.TextCommand):
 			cmd = num_val[0]
 			if cmd != '$':
 				params["overflow"]  = self.OVERFLOW_ZERO
-			
+
 			else:
 				num_val = num_val.replace(cmd,'')
 
@@ -394,7 +394,7 @@ class InputSequenceCommand(sublime_plugin.TextCommand):
 						else:
 							num = 0
 						pp = self.WT_ALPHA
-					
+
 					params['digits_type'].append(digits_type + add)
 
 				else:
@@ -426,7 +426,7 @@ class InputSequenceCommand(sublime_plugin.TextCommand):
 				params['digits_type'] = [self.DT_NUM_ADD]
 			else:
 				params['digits_type'] = [digits_type+1]
-			
+
 		print("dnum", digits_num, len(params['digits_type']))
 
 		while len(params['digits_type']) < digits_num :
@@ -470,18 +470,18 @@ class InputSequenceCommand(sublime_plugin.TextCommand):
 			return
 
 		self.undo()
-		
+
 		# restart process with arguments
 		def inner_insert():
 			self.view.run_command(self.name(), dict(panel_input=abbr))
 
 		sublime.set_timeout(inner_insert, 0)
-		
+
 
 	# callback 'show_input_panel'
 	def on_done(self, abbr):
 		pass
-		
+
 
 	# entry
 	def run(self, edit, panel_input=None):
