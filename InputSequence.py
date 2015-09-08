@@ -6,7 +6,7 @@
     This plug-in will output a sequence numbers in
     mulutiple caret position.
     
-    ver 2.0.0b - 2014.5.5
+    ver 2.0.1 - 2015.9.8
 """
 
 import sublime, sublime_plugin
@@ -65,6 +65,7 @@ class InputSequenceCommand(sublime_plugin.TextCommand):
 
 
 	trimRef = {ord(' '):'', ord('\t'):'', ord('\r'):'', ord('\n'):''}
+			
 
 	def make_str(self, params):
 
@@ -75,7 +76,7 @@ class InputSequenceCommand(sublime_plugin.TextCommand):
 		
 		i = 0
 		dt_len = len(params['digits_type'])
-		insart_str = ""
+		insert_str = ""
 		c = ""
 		num = params['num']
 		d = 0
@@ -129,17 +130,19 @@ class InputSequenceCommand(sublime_plugin.TextCommand):
 
 			num = (num - d) / p
 
-			if i+1 or dt_len or params['overflow'] or self.OVERFLOW_AUTO and d == 0:
-				insart_str = ''.join((c, insart_str))
-
+			insert_str = ''.join((c, insert_str))
 			i += 1
 
 			if i == dt_len and params['overflow'] == self.OVERFLOW_AUTO and num > 0:
 				dt_len += 1
 				params['digits_type'].append(dt_a)
+				
+				# アルファベットで自動桁上りする際は、再帰処理にて再計算を行う
+				if dt_a == self.DT_LITLE_ALPHA_ADD or dt_a == self.DT_CAP_ALPHA_ADD:
+					params['num'] -= pow(26 ,dt_len-1)
+					return self.make_str(params)
 
-		
-		return insart_str
+		return insert_str
 
 
 	def increment(self, params):
